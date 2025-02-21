@@ -36,20 +36,26 @@ public class RunController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public void create(@Valid @RequestBody Run run) {
-        runRepository.create(run);
+        runRepository.save(run);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping({"/{id}"})
     void update(@Valid @RequestBody Run run, @PathVariable int id) {
-        runRepository.update(run, id);
+        runRepository.save(run);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     void delete(@PathVariable int id) {
-        runRepository.delete(id);
+        runRepository.deleteById(id);
     }
+
+    @GetMapping("/location/{location}")
+    public List<Run> findByLocation(@PathVariable String location) {
+        return runRepository.findAllByLocation(location);
+    }
+
 
 
 }
